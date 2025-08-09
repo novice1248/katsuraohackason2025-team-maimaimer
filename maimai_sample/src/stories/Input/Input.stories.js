@@ -1,11 +1,11 @@
 import { fn } from 'storybook/test';
 
-import { Button } from './Button';
+import { input } from './Input.jsx';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 export default {
-  title: 'Example/Button',
-  component: Button,
+  title: 'Example/input',
+  component: input,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: 'centered',
@@ -21,29 +21,29 @@ export default {
 };
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Primary = {
+export const Normal = {
   args: {
-    primary: true,
-    label: 'Button',
+    label: 'input',
+    backgroundColor: "white",
   },
 };
 
 export const Secondary = {
   args: {
-    label: 'Button',
+    label: 'input',
   },
 };
 
 export const Large = {
   args: {
     size: 'large',
-    label: 'Button',
+    label: 'input',
   },
 };
 
 export const Small = {
   args: {
     size: 'small',
-    label: 'Button',
+    label: 'input',
   },
 };
