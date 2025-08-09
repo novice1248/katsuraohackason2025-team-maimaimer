@@ -23,5 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
+
+*storybook.log
+storybook-static
 .vite
 .tool-versions
