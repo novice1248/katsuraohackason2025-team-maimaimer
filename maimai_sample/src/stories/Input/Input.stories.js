@@ -28,9 +28,17 @@ export const Normal = {
   },
 };
 
-export const Secondary = {
+export const Success = {
   args: {
     label: 'input',
+    backgroundColor: "#D4E1EF",
+  },
+};
+
+export const Error = {
+  args: {
+    label: 'input',
+    backgroundColor: "#F8D7DA",
   },
 };
 
