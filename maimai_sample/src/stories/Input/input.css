@@ -10,9 +10,17 @@
 .storybook-input--normal {
   background-color: white;
 }
-.storybook-input--secondary {
-  background-color: #D4E1EF;
+.storybook-input--error-state {
+  border-color: #d32f2f; /* エラー時に枠線を赤くする */
+    background-color: #f8d7da; /* エラー時に背景色を薄い赤にする */
 }
+.storybook-input-error {
+  color: #d32f2f; /* エラーメッセージを赤くする */
+  font-size: 12px;
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
 .storybook-input--small {
   padding: 10px 16px;
   font-size: 12px;
