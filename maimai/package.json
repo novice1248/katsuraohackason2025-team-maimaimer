@@ -9,8 +9,7 @@
     "preview": "vite preview",
     "lint": "biome lint -- write ./src",
     "format": "biome format --write ./src",
-    "check": "biome check --write ./src"
-    "preview": "vite preview",
+    "check": "biome check --write ./src",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
