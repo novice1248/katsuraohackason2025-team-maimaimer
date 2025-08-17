@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "preview": "vite preview",
+    "lint": "biome lint -- write ./src",
+    "format": "biome format --write ./src",
+    "check": "biome check --write ./src"
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -17,6 +20,7 @@
     "react-dom": "^19.1.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.2.0",
     "@eslint/js": "^9.33.0",
     "@storybook/react-vite": "^9.1.2",
     "@types/react": "^19.1.10",
