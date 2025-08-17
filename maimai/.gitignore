@@ -57,3 +57,7 @@ Thumbs.db
 *.sw?
 
 .tool-versions
+
+*storybook.log
+storybook-static
+
