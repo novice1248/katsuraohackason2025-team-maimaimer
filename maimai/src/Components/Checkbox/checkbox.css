@@ -1,0 +1,67 @@
+.storybook-checkbox-wrapper {
+	display: inline-flex;
+	align-items: center;
+	cursor: pointer;
+	font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	gap: 8px;
+}
+
+/* 見た目上のサイズ調整 */
+.storybook-checkbox-wrapper--small {
+	font-size: 12px;
+}
+.storybook-checkbox-wrapper--medium {
+	font-size: 14px;
+}
+.storybook-checkbox-wrapper--large {
+	font-size: 16px;
+}
+
+/* 元のinput要素は非表示にする */
+.storybook-checkbox-input {
+	display: none;
+}
+
+/* 見た目用のチェックボックスの箱 */
+.storybook-checkbox-visual {
+	width: 1em;
+	height: 1em;
+	border: 2px solid #ccc;
+	border-radius: 3px;
+	display: inline-block;
+	position: relative;
+	transition:
+		background-color 0.2s,
+		border-color 0.2s;
+}
+
+/* プライマリー/セカンダリーのスタイル */
+.storybook-checkbox--primary {
+	border-color: #1ea7fd;
+}
+.storybook-checkbox--secondary {
+	border-color: #ccc;
+}
+
+/* チェックが入った時のスタイル */
+.storybook-checkbox-input:checked + .storybook-checkbox-visual {
+	background-color: #1ea7fd;
+	border-color: #1ea7fd;
+}
+
+/* チェックマークの作成 */
+.storybook-checkbox-input:checked + .storybook-checkbox-visual::after {
+	content: "";
+	position: absolute;
+	left: 0.25em;
+	top: 0.05em;
+	width: 0.3em;
+	height: 0.6em;
+	border: solid white;
+	border-width: 0 2px 2px 0;
+	transform: rotate(45deg);
+}
+
+.storybook-checkbox-label {
+	color: #333;
+}
