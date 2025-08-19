@@ -1,0 +1,51 @@
+.input-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	width: 300px;
+	font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.input-label {
+	font-size: 14px;
+	font-weight: 700;
+	color: #333;
+}
+
+.storybook-input {
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	font-weight: 700;
+	line-height: 1;
+}
+
+.storybook-input--primary {
+	border-color: #1ea7fd;
+}
+
+.storybook-input--secondary {
+	border-color: #ccc;
+}
+
+.storybook-input--small {
+	padding: 10px 16px;
+	font-size: 12px;
+}
+.storybook-input--medium {
+	padding: 11px 20px;
+	font-size: 14px;
+}
+.storybook-input--large {
+	padding: 12px 24px;
+	font-size: 16px;
+}
+
+.storybook-input--error-state {
+	border-color: #d32f2f;
+}
+
+.storybook-input-error {
+	color: #d32f2f;
+	font-size: 12px;
+	margin: 0;
+}

@@ -1,4 +1,4 @@
-.storybook-page {
+.storybook-inputform {
 	margin: 0 auto;
 	padding: 48px 20px;
 	max-width: 600px;
@@ -8,7 +8,7 @@
 	font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.storybook-page h2 {
+.storybook-inputform h2 {
 	display: inline-block;
 	vertical-align: top;
 	margin: 0 0 4px;
@@ -17,24 +17,24 @@
 	line-height: 1;
 }
 
-.storybook-page p {
+.storybook-inputform p {
 	margin: 1em 0;
 }
 
-.storybook-page a {
+.storybook-inputform a {
 	color: inherit;
 }
 
-.storybook-page ul {
+.storybook-inputform ul {
 	margin: 1em 0;
 	padding-left: 30px;
 }
 
-.storybook-page li {
+.storybook-inputform li {
 	margin-bottom: 8px;
 }
 
-.storybook-page .tip {
+.storybook-inputform .tip {
 	display: inline-block;
 	vertical-align: top;
 	margin-right: 10px;
@@ -47,14 +47,14 @@
 	line-height: 12px;
 }
 
-.storybook-page .tip-wrapper {
+.storybook-inputform .tip-wrapper {
 	margin-top: 40px;
 	margin-bottom: 40px;
 	font-size: 13px;
 	line-height: 20px;
 }
 
-.storybook-page .tip-wrapper svg {
+.storybook-inputform .tip-wrapper svg {
 	display: inline-block;
 	vertical-align: top;
 	margin-top: 3px;
@@ -63,6 +63,6 @@
 	height: 12px;
 }
 
-.storybook-page .tip-wrapper svg path {
+.storybook-inputform .tip-wrapper svg path {
 	fill: #1ea7fd;
 }

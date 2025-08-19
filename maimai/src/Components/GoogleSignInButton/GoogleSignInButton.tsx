@@ -1,9 +1,9 @@
 import { FirebaseError } from "firebase/app";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useState } from "react";
-import { auth } from "../firebaseConfig"; // Firebase設定ファイルをインポート
+import { auth } from "../../firebaseConfig";
 
-const GoogleSignInButton = () => {
+export const GoogleSignInButton = () => {
 	const [error, setError] = useState("");
 
 	const handleGoogleSignIn = async () => {
@@ -76,5 +76,3 @@ const GoogleSignInButton = () => {
 		</div>
 	);
 };
-
-export default GoogleSignInButton;

@@ -1,9 +1,10 @@
 import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { useId, useState } from "react"; // useIdをインポート
-import { auth } from "../firebaseConfig";
+import type React from "react"; // useIdをインポート
+import { useId, useState } from "react";
+import { auth } from "../../firebaseConfig";
 
-const SignUp = () => {
+export const SignUp = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
@@ -60,10 +61,9 @@ const SignUp = () => {
 			<h2>ユーザー登録</h2>
 			<form onSubmit={handleSubmit}>
 				<div style={{ marginBottom: "15px" }}>
-					{/* 生成したIDをhtmlForに設定 */}
 					<label htmlFor={emailId}>メールアドレス</label>
 					<input
-						id={emailId} // 生成したIDをidに設定
+						id={emailId}
 						type="email"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
@@ -72,10 +72,9 @@ const SignUp = () => {
 					/>
 				</div>
 				<div style={{ marginBottom: "15px" }}>
-					{/* 生成したIDをhtmlForに設定 */}
 					<label htmlFor={passwordId}>パスワード</label>
 					<input
-						id={passwordId} // 生成したIDをidに設定
+						id={passwordId}
 						type="password"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
@@ -102,5 +101,3 @@ const SignUp = () => {
 		</div>
 	);
 };
-
-export default SignUp;

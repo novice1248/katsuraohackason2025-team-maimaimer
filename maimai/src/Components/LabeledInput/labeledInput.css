@@ -1,0 +1,10 @@
+.labeled-input-wrapper {
+	font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.labeled-input-wrapper p {
+	margin-top: 24px;
+	margin-bottom: 8px;
+	font-weight: 700;
+	color: #333;
+}
