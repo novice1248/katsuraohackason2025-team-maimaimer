@@ -1,0 +1,59 @@
+.admin-page-layout {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 64px); /* ヘッダーの高さを引く */
+}
+
+.admin-menu {
+  display: flex;
+  padding: 0 24px;
+  border-bottom: 1px solid #eaeaea;
+  background-color: #f9f9f9;
+}
+
+.admin-menu button {
+  padding: 14px 16px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.admin-menu button:hover {
+  color: #007bff;
+}
+
+.admin-menu button.active {
+  color: #007bff;
+  border-bottom-color: #007bff;
+}
+
+.admin-menu-spacer {
+  flex-grow: 1;
+}
+
+.logout-button-menu {
+  color: #dc3545 !important;
+  border-bottom-color: transparent !important;
+}
+.logout-button-menu:hover {
+  color: #c82333 !important;
+}
+
+
+.admin-content {
+  flex-grow: 1;
+  padding: 24px;
+  overflow-y: auto;
+  background-color: #fff;
+}
+
+.page-placeholder {
+  text-align: center;
+  padding-top: 50px;
+  color: #888;
+}

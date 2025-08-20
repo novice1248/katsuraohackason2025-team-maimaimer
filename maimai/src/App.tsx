@@ -35,27 +35,61 @@ const AuthForms = () => (
 
 function App() {
   const { currentUser, isAdmin, loading } = useAuth();
+  const [activePage, setActivePage] = useState<Page | 'dashboard'>('dashboard');
+
+  useEffect(() => {
+    if (currentUser) {
+      setActivePage('dashboard');
+    }
+  }, [currentUser]);
 
   if (loading) {
     return <div>読み込み中...</div>;
   }
 
-  const renderContent = () => {
-    if (!currentUser) {
-      return <AuthForms />; // 未ログインの場合
+  const renderLoggedInContent = () => {
+    switch (activePage) {
+      case 'dashboard':
+        return <Dashboard setActivePage={setActivePage} isAdmin={isAdmin} />;
+      case 'profile':
+        return <ProfilePage />;
+      case 'form-management':
+        return isAdmin ? <LocationAdmin /> : <p>アクセス権限がありません。</p>;
+      case 'data-entry':
+        return <DataEntryForm />;
+      default:
+        return <Dashboard setActivePage={setActivePage} isAdmin={isAdmin} />;
     }
-    if (isAdmin) {
-      return <LocationAdmin />; // 管理者の場合
-    }
-    return <UserDashboard />; // 一般ユーザーの場合
   };
 
   return (
     <div className="App">
-      {/* Headerコンポーネントをここに配置 */}
       <Header />
       <main className="main-content">
-        {renderContent()}
+        {currentUser ? (
+          <div className="page-content" style={{ padding: '20px' }}>
+            {/* メニュー以外のページで「戻る」ボタンを表示 */}
+            {activePage !== 'dashboard' && (
+              <button
+                onClick={() => setActivePage('dashboard')}
+                style={{ 
+                  display: 'block', 
+                  marginBottom: '20px', 
+                  cursor: 'pointer',
+                  background: 'none',
+                  border: 'none',
+                  color: '#007bff',
+                  fontWeight: 'bold'
+                }}
+              >
+                ← メニューに戻る
+              </button>
+            )}
+            {renderLoggedInContent()}
+          </div>
+        ) : (
+          <AuthPage />
+        )}
       </main>
     </div>
   );

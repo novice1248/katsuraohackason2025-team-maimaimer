@@ -6,9 +6,24 @@ service cloud.firestore {
       return request.auth.token.admin == true;
     }
 
+    // フォーム構造を定義するplacesコレクションのルール
     match /places/{placeId} {
+      // ログインしているユーザーはフォーム構造を読み取れる
       allow read: if request.auth != null;
+      // フォーム構造の変更は管理者のみ許可
       allow write: if isAdmin();
+
+      // categoriesサブコレクションのルール
+      match /categories/{categoryId} {
+        allow read: if request.auth != null;
+        allow write: if isAdmin();
+
+        // itemsサブコレクションのルール
+        match /items/{itemId} {
+          allow read: if request.auth != null;
+          allow write: if isAdmin();
+        }
+      }
     }
   }
 }

@@ -1,0 +1,27 @@
+.app-menu {
+  display: flex;
+  padding: 0 24px;
+  border-bottom: 1px solid #eaeaea;
+  background-color: #f9f9f9;
+}
+
+.app-menu button {
+  padding: 14px 16px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.app-menu button:hover {
+  color: #007bff;
+}
+
+.app-menu button.active {
+  color: #007bff;
+  border-bottom-color: #007bff;
+}
