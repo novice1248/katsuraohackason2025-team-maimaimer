@@ -1,61 +1,72 @@
-import { SignUp } from './components/SignUp/SignUp';
-import{ Login } from './components/Login/Login';
-import { GoogleSignInButton } from './components/GoogleSignInButton/GoogleSignInButton';
-import { useAuth } from './hooks/useAuth';
-import { auth } from './firebaseConfig';
-import { signOut } from 'firebase/auth';
-import { LocationAdmin } from './components/LocationAdmin/LocationAdmin';
+import { useState, useEffect } from 'react';
 import { Header } from './components/Header/Header';
+import { type Page } from './components/Menu/Menu';
+import { ProfilePage } from './components/Profile/ProfilePage';
+import { LocationAdmin } from './components/LocationAdmin/LocationAdmin'; 
+import { useAuth } from './hooks/useAuth';
 
-// ログイン後の一般ユーザー向け画面
-const UserDashboard = () => {
-  const { currentUser } = useAuth();
-  return (
-    <div>
-      <h2>ようこそ、{currentUser?.displayName || currentUser?.email}さん！</h2>
-      <p>これは一般ユーザー向けのページです。</p>
-      <button onClick={() => signOut(auth)}>ログアウト</button>
-    </div>
-  );
-};
-
-// ログイン前の画面
-const AuthForms = () => (
-  <>
-    <div style={{ display: 'flex', justifyContent: 'center', gap: '40px', flexWrap: 'wrap' }}>
-      <SignUp />
-      <Login />
-    </div>
-    <div style={{ textAlign: 'center', margin: '20px 0', color: '#888' }}>または</div>
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <GoogleSignInButton />
-    </div>
-  </>
-);
+// ページコンポーネントをインポート
+import { Dashboard } from './pages/DashBoard'; 
+import { DataEntryForm } from './pages/DataEntryForm';
+import { AuthPage } from './pages/AuthPage';
 
 function App() {
   const { currentUser, isAdmin, loading } = useAuth();
+  const [activePage, setActivePage] = useState<Page | 'dashboard'>('dashboard');
+
+  useEffect(() => {
+    if (currentUser) {
+      setActivePage('dashboard');
+    }
+  }, [currentUser]);
 
   if (loading) {
     return <div>読み込み中...</div>;
   }
 
-  const renderContent = () => {
-    if (!currentUser) {
-      return <AuthForms />; // 未ログインの場合
+  const renderLoggedInContent = () => {
+    switch (activePage) {
+      case 'dashboard':
+        return <Dashboard setActivePage={setActivePage} isAdmin={isAdmin} />;
+      case 'profile':
+        return <ProfilePage />;
+      case 'form-management':
+        return isAdmin ? <LocationAdmin /> : <p>アクセス権限がありません。</p>;
+      case 'data-entry':
+        return <DataEntryForm />;
+      default:
+        return <Dashboard setActivePage={setActivePage} isAdmin={isAdmin} />;
     }
-    if (isAdmin) {
-      return <LocationAdmin />; // 管理者の場合
-    }
-    return <UserDashboard />; // 一般ユーザーの場合
   };
 
   return (
     <div className="App">
-      {/* Headerコンポーネントをここに配置 */}
       <Header />
       <main className="main-content">
-        {renderContent()}
+        {currentUser ? (
+          <div className="page-content" style={{ padding: '20px' }}>
+            {/* メニュー以外のページで「戻る」ボタンを表示 */}
+            {activePage !== 'dashboard' && (
+              <button
+                onClick={() => setActivePage('dashboard')}
+                style={{ 
+                  display: 'block', 
+                  marginBottom: '20px', 
+                  cursor: 'pointer',
+                  background: 'none',
+                  border: 'none',
+                  color: '#007bff',
+                  fontWeight: 'bold'
+                }}
+              >
+                ← メニューに戻る
+              </button>
+            )}
+            {renderLoggedInContent()}
+          </div>
+        ) : (
+          <AuthPage />
+        )}
       </main>
     </div>
   );
