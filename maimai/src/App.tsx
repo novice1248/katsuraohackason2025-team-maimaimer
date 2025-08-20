@@ -1,7 +1,7 @@
 import { SignUp } from './components/SignUp/SignUp';
 import{ Login } from './components/Login/Login';
 import { GoogleSignInButton } from './components/GoogleSignInButton/GoogleSignInButton';
-import { useAuth } from './context/AuthContext';
+import { useAuth } from './hooks/useAuth';
 import { auth } from './firebaseConfig';
 import { signOut } from 'firebase/auth';
 import { LocationAdmin } from './components/LocationAdmin/LocationAdmin';
