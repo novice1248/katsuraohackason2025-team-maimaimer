@@ -1,11 +1,11 @@
-import { SignUp } from './components/SignUp/SignUp';
-import{ Login } from './components/Login/Login';
-import { GoogleSignInButton } from './components/GoogleSignInButton/GoogleSignInButton';
+import { SignUp } from './Components/SignUp/SignUp';
+import{ Login } from './Components/Login/Login';
+import { GoogleSignInButton } from './Components/GoogleSignInButton/GoogleSignInButton';
 import { useAuth } from './context/AuthContext';
 import { auth } from './firebaseConfig';
 import { signOut } from 'firebase/auth';
-import { LocationAdmin } from './components/LocationAdmin/LocationAdmin';
-import { Header } from './components/Header/Header';
+import { LocationAdmin } from './Components/LocationAdmin/LocationAdmin';
+import { Header } from './Components/Header/Header';
 
 // ログイン後の一般ユーザー向け画面
 const UserDashboard = () => {
@@ -22,7 +22,7 @@ const UserDashboard = () => {
 // ログイン前の画面
 const AuthForms = () => (
   <>
-    <div style={{ display: 'flex', justifyContent: 'center', gap: '40px', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
       <SignUp />
       <Login />
     </div>

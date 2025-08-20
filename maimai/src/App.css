@@ -52,7 +52,7 @@
 	filter: drop-shadow(0 0 2em #646cffaa);
 }
 .logo.react:hover {
-	filter: drop-shadow(0 0 2em #61dafbaa);
+	filter: drop_shadow(0 0 2em #61dafbaa);
 }
 
 @keyframes logo-spin {
@@ -83,12 +83,14 @@
   justify-content: center;
   gap: 20px; /* PC画面でのギャップを調整 */
   flex-wrap: wrap;
+  min-width: 800px; /* 2つのフォームが並ぶように最小幅を設定 */
 }
 
 /* スマートフォン向け */
 @media (max-width: 767px) {
   .auth-forms-container {
     gap: 10px; /* スマートフォンでのギャップを調整 */
+    min-width: unset; /* スマートフォンでは最小幅を解除 */
   }
 }
 
@@ -96,5 +98,6 @@
 @media (min-width: 768px) and (max-width: 1023px) {
   .auth-forms-container {
     gap: 15px; /* タブレットでのギャップを調整 */
+    min-width: unset; /* タブレットでは最小幅を解除 */
   }
 }
