@@ -1,32 +1,58 @@
+import * as functions from "firebase-functions/v1"; // v1を明示的にインポート
+import * as admin from "firebase-admin";
+
+admin.initializeApp();
+
 /**
- * Import function triggers from their respective submodules:
- *
- * import {onCall} from "firebase-functions/v2/https";
- * import {onDocumentWritten} from "firebase-functions/v2/firestore";
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
+ * 指定したメールアドレスのユーザーに管理者権限を付与する。
+ * この関数は、呼び出し元がすでに管理者であるか、
+ * もしくはプロジェクトのオーナーである場合にのみ成功します。
+ * @param {string} email - 管理者権限を付与したいユーザーのメールアドレス
  */
+export const addAdminRole = functions
+  .region("asia-northeast1") // 東京リージョンを指定
+  .https.onCall(async (data: { email: string }, context: functions.https.CallableContext) => { // dataとcontextに型を定義
+    // 認証済みのユーザーからの呼び出しかをチェック
+    if (!context.auth) {
+      throw new functions.https.HttpsError(
+        "unauthenticated",
+        "この機能は認証されたユーザーのみが利用できます。",
+      );
+    }
+    
+    const email = data.email;
+    try {
+      // メールアドレスからユーザー情報を取得
+      const user = await admin.auth().getUserByEmail(email);
+      // ユーザーにカスタムクレームを設定
+      await admin.auth().setCustomUserClaims(user.uid, { admin: true });
+      
+      return {
+        message: `${email}に管理者権限を付与しました。`,
+      };
+    } catch (error) {
+      console.error("管理者権限の付与に失敗しました:", error);
+      throw new functions.https.HttpsError(
+        "internal",
+        "管理者権限の付与に失敗しました。",
+      );
+    }
+  });
 
-import {setGlobalOptions} from "firebase-functions";
-import {onRequest} from "firebase-functions/https";
-import * as logger from "firebase-functions/logger";
+/**
+ * 新しいユーザーが作成されたときに、Firestoreにユーザー情報を保存する
+ */
+export const createUserDocument = functions
+  .region("asia-northeast1")
+  .auth.user().onCreate((user: admin.auth.UserRecord) => { // userに型を定義
+    const { uid, email, displayName } = user;
 
-// Start writing functions
-// https://firebase.google.com/docs/functions/typescript
-
-// For cost control, you can set the maximum number of containers that can be
-// running at the same time. This helps mitigate the impact of unexpected
-// traffic spikes by instead downgrading performance. This limit is a
-// per-function limit. You can override the limit for each function using the
-// `maxInstances` option in the function's options, e.g.
-// `onRequest({ maxInstances: 5 }, (req, res) => { ... })`.
-// NOTE: setGlobalOptions does not apply to functions using the v1 API. V1
-// functions should each use functions.runWith({ maxInstances: 10 }) instead.
-// In the v1 API, each function can only serve one request per container, so
-// this will be the maximum concurrent request count.
-setGlobalOptions({ maxInstances: 10 });
-
-// export const helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+    // Firestoreの'users'コレクションにドキュメントを作成
+    return admin.firestore().collection("users").doc(uid).set({
+      email,
+      displayName: displayName || "",
+      role: "user", // デフォルトは一般ユーザー
+      isApproved: false, // デフォルトは未承認
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    });
+  });
