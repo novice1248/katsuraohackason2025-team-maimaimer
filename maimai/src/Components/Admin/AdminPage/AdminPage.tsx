@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { LocationAdmin } from '../LocationAdmin/LocationAdmin'; // パスを更新
-import { useAuth } from '../../hooks/useAuth'; // パスを更新
+import { LocationAdmin } from '../../LocationAdmin/LocationAdmin'; // パスを更新
+import { useAuth } from '../../../hooks/useAuth'; // パスを更新
 import './AdminPage.css';
 
 // 表示するページの種類を定義
