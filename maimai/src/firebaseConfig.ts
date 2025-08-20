@@ -3,13 +3,13 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_API_KEY,
-  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_APP_ID,
-  measurementId: import.meta.env.VITE_MEASUREMENT_ID,
+	apiKey: "AIzaSyBtW_witMwgoMD-ULmeM5b0RVkd1iQnEcg",
+	authDomain: "maimai-a1302.firebaseapp.com",
+	projectId: "maimai-a1302",
+	storageBucket: "maimai-a1302.firebasestorage.app",
+	messagingSenderId: "823024798025",
+	appId: "1:823024798025:web:bff7cfed9cca63dfe63298",
+	measurementId: "G-9HXB7Q48K5",
 };
 
 const app = initializeApp(firebaseConfig);
