@@ -1,37 +1,14 @@
-import { SignUp } from './Components/SignUp/SignUp';
-import{ Login } from './Components/Login/Login';
-import { GoogleSignInButton } from './Components/GoogleSignInButton/GoogleSignInButton';
-import { useAuth } from './context/AuthContext';
-import { auth } from './firebaseConfig';
-import { signOut } from 'firebase/auth';
-import { LocationAdmin } from './Components/LocationAdmin/LocationAdmin';
+import { useState, useEffect } from 'react';
 import { Header } from './Components/Header/Header';
+import { type Page } from './Components/Menu/Menu';
+import { ProfilePage } from './Components/Profile/ProfilePage';
+import { LocationAdmin } from './Components/LocationAdmin/LocationAdmin';
+import { useAuth } from './hooks/useAuth';
 
-// ログイン後の一般ユーザー向け画面
-const UserDashboard = () => {
-  const { currentUser } = useAuth();
-  return (
-    <div>
-      <h2>ようこそ、{currentUser?.displayName || currentUser?.email}さん！</h2>
-      <p>これは一般ユーザー向けのページです。</p>
-      <button onClick={() => signOut(auth)}>ログアウト</button>
-    </div>
-  );
-};
-
-// ログイン前の画面
-const AuthForms = () => (
-  <>
-    <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
-      <SignUp />
-      <Login />
-    </div>
-    <div style={{ textAlign: 'center', margin: '20px 0', color: '#888' }}>または</div>
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <GoogleSignInButton />
-    </div>
-  </>
-);
+// ページコンポーネントをインポート
+import { Dashboard } from './pages/DashBoard';
+import { DataEntryForm } from './pages/DataEntryForm';
+import { AuthPage } from './pages/AuthPage';
 
 function App() {
   const { currentUser, isAdmin, loading } = useAuth();
@@ -72,9 +49,9 @@ function App() {
             {activePage !== 'dashboard' && (
               <button
                 onClick={() => setActivePage('dashboard')}
-                style={{ 
-                  display: 'block', 
-                  marginBottom: '20px', 
+                style={{
+                  display: 'block',
+                  marginBottom: '20px',
                   cursor: 'pointer',
                   background: 'none',
                   border: 'none',
