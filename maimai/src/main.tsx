@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
-import { AuthProvider } from "./context/AuthContext.tsx"; // AuthProviderをインポート
+import { AuthProvider } from "./context/AuthProvider.tsx"; // AuthProviderをインポート
 
 const rootElement = document.getElementById("root");
 if (rootElement) {

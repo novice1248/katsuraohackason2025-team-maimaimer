@@ -1,26 +1,8 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import type { ReactNode } from 'react'; // ReactNodeを型としてインポート
-import { onAuthStateChanged, type User, signOut } from 'firebase/auth';
+import { useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
+import { onAuthStateChanged, signOut, type User } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
-
-// Contextが提供するデータの型を定義
-type AuthContextType = {
-  currentUser: User | null;
-  isAdmin: boolean;
-  loading: boolean;
-  logout: () => Promise<void>; // ログアウト関数を追加
-};
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-// Contextの値をどこからでも簡単に使えるようにするためのカスタムフック
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
-};
+import { AuthContext } from './AuthContext'; // 作成したファイルからインポート
 
 // アプリ全体に認証情報を提供するコンポーネント
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -39,11 +21,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
       setLoading(false);
     });
-
     return unsubscribe;
   }, []);
 
-  // ログアウト処理を行う関数
   const logout = async () => {
     try {
       await signOut(auth);
@@ -56,7 +36,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     currentUser,
     isAdmin,
     loading,
-    logout, // logout関数をvalueに追加
+    logout,
   };
 
   return (
