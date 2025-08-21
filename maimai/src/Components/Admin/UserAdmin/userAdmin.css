@@ -1,0 +1,62 @@
+.user-admin-container {
+  padding: 20px;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.user-table th,
+.user-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.user-table th {
+  background-color: #f2f2f2;
+}
+
+/* 承認状態のバッジ */
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+}
+.status-badge.approved {
+  background-color: #28a745; /* 緑 */
+}
+.status-badge.pending {
+  background-color: #ffc107; /* 黄色 */
+  color: #333;
+}
+
+/* 操作ボタンのスタイル */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.approval-button,
+.admin-role-button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.admin-role-button {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+.admin-role-button:hover {
+  background-color: #dc3545;
+  color: white;
+}
