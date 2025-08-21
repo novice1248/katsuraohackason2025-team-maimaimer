@@ -167,3 +167,84 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
+@media (prefers-color-scheme: dark) {
+  .form-management-layout {
+    background-color: #242424; /* Darker background */
+  }
+
+  .column {
+    border-color: #444; /* Darker border */
+    background-color: #333; /* Darker background */
+  }
+
+  .column-header {
+    border-bottom-color: #444;
+    background-color: #333;
+  }
+
+  .column-header h3 {
+    color: #f0f0f0; /* Lighter text */
+  }
+
+  .list-item {
+    color: #ccc; /* Lighter text */
+  }
+
+  .list-item:hover {
+    background-color: #444; /* Darker hover background */
+  }
+
+  .list-item.selected {
+    background-color: #555; /* Darker selected background */
+    border-color: #90caf9; /* Lighter blue border for selected */
+    color: #f0f0f0;
+  }
+
+  .delete-button-small {
+    color: #aaa; /* Lighter gray */
+  }
+  .list-item.selected .delete-button-small {
+    color: #f0f0f0;
+  }
+  .delete-button-small:hover {
+    color: #f0f0f0;
+  }
+
+  .add-form input {
+    border-color: #666;
+    background-color: #444;
+    color: #f0f0f0;
+  }
+
+  .add-form button {
+    border-color: #666;
+    background-color: #555;
+    color: #f0f0f0;
+  }
+
+  .item-name {
+    color: #f0f0f0;
+  }
+  .list-item-detailed small {
+    color: #ccc;
+  }
+
+  .add-form-detailed {
+    border-top-color: #444;
+  }
+
+  .add-form-detailed label {
+    color: #ccc;
+  }
+
+  .add-form-detailed input, .add-form-detailed select {
+    border-color: #666;
+    background-color: #444;
+    color: #f0f0f0;
+  }
+  .add-form-detailed button {
+    background-color: #555;
+    color: #f0f0f0;
+  }
+}

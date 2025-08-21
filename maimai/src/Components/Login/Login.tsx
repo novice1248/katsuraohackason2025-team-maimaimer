@@ -55,8 +55,8 @@ export const Login = () => {
         border: '1px solid #ccc',
         borderRadius: '8px',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', /* Add a subtle shadow */
-        backgroundColor: '#fff', /* White background for the card */
-        color: '#333', /* Darker text color */
+        backgroundColor: 'var(--card-background-color, #fff)', /* White background for the card */
+        color: 'var(--text-color, #333)', /* Darker text color */
     }}>
       <h2>ログイン</h2>
       <form onSubmit={handleSubmit}>
@@ -68,7 +68,7 @@ export const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={{ width: '100%', padding: '8px', boxSizing: 'border-box', backgroundColor: '#fff', color: '#333' }}
+            style={{ width: '100%', padding: '8px', boxSizing: 'border-box', backgroundColor: 'var(--input-background-color, #fff)', color: 'var(--input-text-color, #333)', border: '1px solid var(--input-border-color, #ccc)' }}
           />
         </div>
         <div style={{ marginBottom: '15px' }}>
@@ -79,7 +79,7 @@ export const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={{ width: '100%', padding: '8px', boxSizing: 'border-box', backgroundColor: '#fff', color: '#333' }}
+            style={{ width: '100%', padding: '8px', boxSizing: 'border-box', backgroundColor: 'var(--input-background-color, #fff)', color: 'var(--input-text-color, #333)', border: '1px solid var(--input-border-color, #ccc)' }}
           />
         </div>
         {error && <p style={{ color: 'red' }}>{error}</p>}

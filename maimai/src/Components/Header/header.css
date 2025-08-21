@@ -47,3 +47,28 @@
   background-color: #007bff;
   color: white;
 }
+
+@media (prefers-color-scheme: dark) {
+  .app-header {
+    background-color: #1a1a1a; /* Darker background for header */
+    border-bottom-color: #333; /* Darker border */
+  }
+
+  .header-logo h1 {
+    color: #f0f0f0; /* Lighter text for dark mode */
+  }
+
+  .user-info span {
+    color: #ccc; /* Lighter text for dark mode */
+  }
+
+  .logout-button {
+    color: #90caf9; /* Lighter blue for dark mode */
+    border-color: #90caf9; /* Lighter blue border */
+  }
+
+  .logout-button:hover {
+    background-color: #90caf9;
+    color: #1a1a1a; /* Dark text on hover */
+  }
+}

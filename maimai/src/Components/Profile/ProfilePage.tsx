@@ -54,11 +54,20 @@ export const ProfilePage = () => {
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '500px', margin: '20px auto' }}>
+    <div style={{
+        padding: '20px',
+        maxWidth: '500px',
+        margin: '20px auto',
+        backgroundColor: 'var(--card-background-color, #fff)',
+        color: 'var(--text-color, #333)',
+        border: '1px solid var(--input-border-color, #ccc)',
+        borderRadius: '8px',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    }}>
       <h2>プロフィール設定</h2>
       <form onSubmit={handleSaveProfile}>
         <div style={{ marginBottom: '15px' }}>
-          <label htmlFor="displayName" style={{ display: 'block', marginBottom: '5px' }}>ユーザー名</label>
+          <label htmlFor="displayName" style={{ display: 'block', marginBottom: '5px', color: 'var(--text-color, #333)' }}>ユーザー名</label>
           <input
             id="displayName"
             type="text"
@@ -66,13 +75,13 @@ export const ProfilePage = () => {
             onChange={(e) => setDisplayName(e.target.value)}
             placeholder="表示名を入力"
             required
-            style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+            style={{ width: '100%', padding: '8px', boxSizing: 'border-box', backgroundColor: 'var(--input-background-color, #fff)', color: 'var(--input-text-color, #333)', border: '1px solid var(--input-border-color, #ccc)' }}
           />
         </div>
-        <button type="submit" disabled={loading} style={{ padding: '10px 20px', cursor: 'pointer' }}>
+        <button type="submit" disabled={loading} style={{ padding: '10px 20px', cursor: 'pointer', color: 'var(--link-color, #007bff)' }}>
           {loading ? '保存中...' : '保存する'}
         </button>
-        {message && <p style={{ marginTop: '10px', color: '#333' }}>{message}</p>}
+        {message && <p style={{ marginTop: '10px', color: 'var(--text-color, #333)' }}>{message}</p>}
       </form>
     </div>
   );
