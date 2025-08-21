@@ -58,7 +58,7 @@ export const ProfilePage = () => {
         padding: '20px',
         maxWidth: '500px',
         margin: '20px auto',
-        backgroundColor: 'var(--card-background-color, #fff)',
+        backgroundColor: 'var(--card-background-color, #ffffff)',
         color: 'var(--text-color, #333)',
         border: '1px solid var(--input-border-color, #ccc)',
         borderRadius: '8px',
@@ -75,7 +75,7 @@ export const ProfilePage = () => {
             onChange={(e) => setDisplayName(e.target.value)}
             placeholder="表示名を入力"
             required
-            style={{ width: '100%', padding: '8px', boxSizing: 'border-box', backgroundColor: 'var(--input-background-color, #fff)', color: 'var(--input-text-color, #333)', border: '1px solid var(--input-border-color, #ccc)' }}
+            style={{ width: '100%', padding: '8px', boxSizing: 'border-box', backgroundColor: 'var(--input-background-color, #ffffff)', color: 'var(--input-text-color, #333)', border: '1px solid var(--input-border-color, #ccc)' }}
           />
         </div>
         <button type="submit" disabled={loading} style={{ padding: '10px 20px', cursor: 'pointer', color: 'var(--link-color, #007bff)' }}>

@@ -1,6 +1,6 @@
 .app-header {
-  background-color: #ffffff;
-  border-bottom: 1px solid #eaeaea;
+  background-color: var(--card-background-color, #ffffff);
+  border-bottom: 1px solid var(--input-border-color, #eaeaea);
   padding: 0 24px;
   height: 64px;
 }
@@ -18,7 +18,7 @@
   font-size: 20px;
   font-weight: 600;
   margin: 0;
-  color: #333;
+  color: var(--text-color, #333);
 }
 
 .header-nav .user-info {
@@ -29,14 +29,14 @@
 
 .user-info span {
   font-size: 14px;
-  color: #555;
+  color: var(--text-color, #555);
 }
 
 .logout-button {
   padding: 8px 16px;
   background-color: transparent;
-  color: #007bff;
-  border: 1px solid #007bff;
+  color: var(--link-color, #007bff);
+  border: 1px solid var(--link-color, #007bff);
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
@@ -44,7 +44,7 @@
 }
 
 .logout-button:hover {
-  background-color: #007bff;
+  background-color: var(--link-color, #007bff);
   color: white;
 }
 

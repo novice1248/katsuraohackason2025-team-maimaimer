@@ -53,7 +53,7 @@ export const SignUp = () => {
 			style={{
 				maxWidth: "400px",
 				padding: "20px",
-				border: "1px solid #ccc",
+				border: "1px solid var(--input-border-color, #ccc)",
 				borderRadius: "8px",
 				boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", /* Add a subtle shadow */
 				backgroundColor: "var(--card-background-color, #fff)", /* White background for the card */

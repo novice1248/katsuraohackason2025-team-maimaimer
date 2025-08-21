@@ -54,15 +54,24 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
 	:root {
-		color: #213547;
-		background-color: #ffffff;
+		color: #333; /* Softer dark text for light mode */
+		background-color: #f0f0f0; /* Softer off-white background for light mode */
+
+		/* Custom properties for light mode */
+		--card-background-color: #ffffff;
+		--text-color: #333;
+		--input-background-color: #ffffff;
+		--input-text-color: #333;
+		--input-border-color: #ccc;
+		--link-color: #007bff;
 	}
 	a:hover {
 		color: #747bff;
 	}
 	button {
-		background-color: #f9f9f9;
-		color: #213547; /* Ensure text color is dark in light mode */
+		background-color: #f0f0f0; /* Softer background for buttons in light mode */
+		color: #333; /* Ensure text color is dark in light mode */
+		border: 1px solid #ccc; /* Softer border for buttons in light mode */
 	}
 	button:hover {
 		border-color: #747bff;
