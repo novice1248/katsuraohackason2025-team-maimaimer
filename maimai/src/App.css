@@ -5,6 +5,43 @@
 	text-align: center;
 }
 
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 画面の高さいっぱいにする */
+}
+
+.main-content {
+  flex-grow: 1; /* 残りのスペースを埋める */
+  display: flex;
+  justify-content: center; /* 水平方向の中央揃え */
+  align-items: center; /* 垂直方向の中央揃え */
+  padding: 20px; /* コンテンツのパディング */
+  box-sizing: border-box; /* パディングを幅に含める */
+  width: 100%; /* 幅を100%にする */
+}
+
+/* スマートフォン向け */
+@media (max-width: 767px) {
+  .main-content {
+    padding: 10px;
+  }
+}
+
+/* タブレット向け */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .main-content {
+    padding: 15px;
+  }
+}
+
+/* PC向け */
+@media (min-width: 1024px) {
+  .main-content {
+    padding: 20px;
+  }
+}
+
 .logo {
 	height: 6em;
 	padding: 1.5em;
@@ -15,7 +52,7 @@
 	filter: drop-shadow(0 0 2em #646cffaa);
 }
 .logo.react:hover {
-	filter: drop-shadow(0 0 2em #61dafbaa);
+	filter: drop_shadow(0 0 2em #61dafbaa);
 }
 
 @keyframes logo-spin {
@@ -39,4 +76,28 @@
 
 .read-the-docs {
 	color: #888;
+}
+
+.auth-forms-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* PC画面でのギャップを調整 */
+  flex-wrap: wrap;
+  min-width: 800px; /* 2つのフォームが並ぶように最小幅を設定 */
+}
+
+/* スマートフォン向け */
+@media (max-width: 767px) {
+  .auth-forms-container {
+    gap: 10px; /* スマートフォンでのギャップを調整 */
+    min-width: unset; /* スマートフォンでは最小幅を解除 */
+  }
+}
+
+/* タブレット向け */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .auth-forms-container {
+    gap: 15px; /* タブレットでのギャップを調整 */
+    min-width: unset; /* タブレットでは最小幅を解除 */
+  }
 }

@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Header } from './components/Header/Header';
-import { type Page } from './components/Menu/Menu';
-import { ProfilePage } from './components/Profile/ProfilePage';
-import { LocationAdmin } from './components/LocationAdmin/LocationAdmin'; 
+import { Header } from './Components/Header/Header';
+import { type Page } from './Components/Menu/Menu';
+import { ProfilePage } from './Components/Profile/ProfilePage';
+import { LocationAdmin } from './Components/LocationAdmin/LocationAdmin';
 import { useAuth } from './hooks/useAuth';
 
 // ページコンポーネントをインポート
-import { Dashboard } from './pages/DashBoard'; 
+import { Dashboard } from './pages/DashBoard';
 import { DataEntryForm } from './pages/DataEntryForm';
 import { AuthPage } from './pages/AuthPage';
 
@@ -49,9 +49,9 @@ function App() {
             {activePage !== 'dashboard' && (
               <button
                 onClick={() => setActivePage('dashboard')}
-                style={{ 
-                  display: 'block', 
-                  marginBottom: '20px', 
+                style={{
+                  display: 'block',
+                  marginBottom: '20px',
                   cursor: 'pointer',
                   background: 'none',
                   border: 'none',
