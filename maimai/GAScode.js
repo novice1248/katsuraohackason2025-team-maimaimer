@@ -1,36 +1,58 @@
-// VSCodeで編集した場合はclasp pushでGASに反映されます
-
 function doPost(e) {
-  Logger.log(e.postData.contents);
-  // Webアプリから送信されたJSONデータを解析
-  var data = JSON.parse(e.postData.contents);
-  
-  // スプレッドシートを取得
-  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = spreadsheet.getSheetByName("シート1"); // データの書き込み先シート名
+  try {
+    // どんなデータが送られてきたか、まずログに出力して確認
+    Logger.log("Received data: " + e.postData.contents);
 
-  // タイムスタンプを生成
-  var timestamp = new Date();
+    // Webアプリから送信されたJSONデータを解析
+    var postData = JSON.parse(e.postData.contents);
+    
+    // スプレッドシートを取得
+    var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = spreadsheet.getSheetByName("シート1"); // データの書き込み先シート名
 
-  // JSONデータから情報を取得
-  var 担当者名 = data.担当者名;
-  var 運転時間 = data.機械データ.運転時間;
-  var 生産量 = data.機械データ.生産量;
-  var 異常チェック = data.機械データ.異常チェック;
+    // ヘッダー行がなければ作成する
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(["タイムスタンプ", "担当者名", "場所", "施設", "項目名", "値"]);
+    }
 
-  // スプレッドシートに書き込むデータを行としてまとめる
-  // [日付, 担当者名, 運転時間, 生産量, 異常チェック]の順で書き込みます
-  var rowData = [
-    timestamp,
-    担当者名,
-    運転時間,
-    生産量,
-    異常チェック
-  ];
+    // JSONデータから基本情報を取得
+    var timestamp = postData.タイムスタンプ || new Date();
+    // ↓↓↓ ここにスペースを追加しました ↓↓↓
+    var 担当者名 = postData.担当者名 || '不明'; 
+    var data = postData.データ || {};
 
-  // データをシートの最終行に追記
-  sheet.appendRow(rowData);
+    // ネストされたデータをループ処理で展開し、一行ずつ書き込む
+    for (var placeName in data) {
+      if (data.hasOwnProperty(placeName)) {
+        var categories = data[placeName];
+        for (var categoryName in categories) {
+          if (categories.hasOwnProperty(categoryName)) {
+            var items = categories[categoryName];
+            for (var itemName in items) {
+              if (items.hasOwnProperty(itemName)) {
+                var value = items[itemName];
+                
+                var rowData = [
+                  timestamp,
+                  担当者名,
+                  placeName,
+                  categoryName,
+                  itemName,
+                  value
+                ];
+                
+                sheet.appendRow(rowData);
+              }
+            }
+          }
+        }
+      }
+    }
 
-  // 処理が成功したことをWebアプリに返す
-  return ContentService.createTextOutput("Success").setMimeType(ContentService.MimeType.TEXT);
+    return ContentService.createTextOutput("Success").setMimeType(ContentService.MimeType.TEXT);
+
+  } catch (error) {
+    Logger.log("Error occurred: " + error.toString());
+    return ContentService.createTextOutput("Error: " + error.toString()).setMimeType(ContentService.MimeType.TEXT);
+  }
 }
