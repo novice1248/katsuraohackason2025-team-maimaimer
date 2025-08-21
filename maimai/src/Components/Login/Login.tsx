@@ -52,7 +52,7 @@ export const Login = () => {
     <div style={{
         maxWidth: '400px',
         padding: '20px',
-        border: '1px solid #ccc',
+        border: '1px solid var(--input-border-color, #ccc)',
         borderRadius: '8px',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', /* Add a subtle shadow */
         backgroundColor: 'var(--card-background-color, #fff)', /* White background for the card */
@@ -72,7 +72,7 @@ export const Login = () => {
           />
         </div>
         <div style={{ marginBottom: '15px' }}>
-          <label htmlFor={passwordId}>パスワード</label>
+          <label htmlFor={passwordId}>パスword</label>
           <input
             id={passwordId}
             type="password"
