@@ -1,0 +1,63 @@
+# Logs
+# 実行ログやエラーログ
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+# npm installでインストールされるパッケージ（非常に巨大）
+/node_modules
+# Cloud Functions用のパッケージも除外
+/functions/node_modules
+
+# Build output
+# npm run buildで生成される本番用のファイル
+/dist
+/dist-ssr
+
+# Environment variables
+# APIキーなどの秘密情報を記述するファイル。これは絶対に含めないでください。
+.env
+.env.local
+.env.*.local
+
+# Firebase-specific files
+# Firebase CLIがローカルで使用するキャッシュなど
+.firebase/
+# Firebaseエミュレータのデータ
+*.emulators.export/
+# Firebaseのデバッグログ
+firebase-debug.log*
+firebase-debug.*.log
+
+# OS generated files
+# macOSやWindowsが自動生成する隠しファイル
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+# VSCodeやJetBrains系のエディタ設定
+.idea
+.vscode
+
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+.tool-versions
+
+*storybook.log
+storybook-static
+
