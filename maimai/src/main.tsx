@@ -8,7 +8,6 @@ const rootElement = document.getElementById("root");
 if (rootElement) {
   createRoot(rootElement).render(
     <StrictMode>
-      {/* App全体をAuthProviderで囲む */}
       <AuthProvider>
         <App />
       </AuthProvider>

@@ -34,5 +34,16 @@ service cloud.firestore {
         // 管理者は全ユーザーの情報を読み書きできる
         allow list, get, update: if isAdmin();
     }
+    // --- レポートデータ (reports) のルール ---
+    match /reports/{reportId} {
+      // ログインしているユーザーは、自分のレポートを作成できる
+      allow create: if isSignedIn() && request.resource.data.submittedBy.uid == request.auth.uid;
+
+      // ログインしているユーザーは、自分のレポートを読み取れる
+      allow read: if isSignedIn() && resource.data.submittedBy.uid == request.auth.uid;
+      
+      // 管理者はすべてのレポートを読み取れる
+      allow list, get: if isAdmin();
+    }
   }
 }
