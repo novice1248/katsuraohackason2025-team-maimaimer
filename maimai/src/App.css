@@ -19,6 +19,7 @@
   padding: 20px; /* コンテンツのパディング */
   box-sizing: border-box; /* パディングを幅に含める */
   width: 100%; /* 幅を100%にする */
+  background-color: var(--background-color); /* グローバル変数を使用 */
 }
 
 /* スマートフォン向け */

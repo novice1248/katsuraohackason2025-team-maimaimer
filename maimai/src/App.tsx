@@ -5,9 +5,15 @@ import { useAuth } from './hooks/useAuth';
 import { AuthPage } from './pages/AuthPage';
 import { AdminMenu } from './pages/AdminMenu';
 import { UserMenu } from './pages/UserMenu';
+import { useEffect } from 'react'; // useEffectをインポート
 
 function App() {
   const { currentUser, isAdmin, loading } = useAuth();
+
+  useEffect(() => {
+    // ダークモード関連のクラス設定を削除し、常にライトモードの背景色を適用
+    document.body.className = 'light-mode';
+  }, []);
 
   if (loading) {
     return <div>読み込み中...</div>;
@@ -26,7 +32,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <Header /> {/* themeとsetThemeのpropsを削除 */}
       <main className="main-content">
         {renderMainContent()}
       </main>

@@ -1,6 +1,5 @@
 import { useAuth } from '../../hooks/useAuth'; // パスを更新
 import './Header.css';
-
 export const Header = () => {
   // AuthContextから現在のユーザー情報とログアウト関数を取得
   const { currentUser, logout } = useAuth();

@@ -26,22 +26,4 @@
   border-bottom-color: var(--link-color, #007bff);
 }
 
-@media (prefers-color-scheme: dark) {
-  .app-menu {
-    background-color: #242424; /* Darker background for menu */
-    border-bottom-color: #333; /* Darker border */
-  }
-
-  .app-menu button {
-    color: #ccc; /* Lighter text for dark mode */
-  }
-
-  .app-menu button:hover {
-    color: #90caf9; /* Lighter blue for dark mode */
-  }
-
-  .app-menu button.active {
-    color: #90caf9; /* Lighter blue for dark mode */
-    border-bottom-color: #90caf9; /* Lighter blue border */
-  }
-}
+/* @media (prefers-color-scheme: dark) はApp.tsxでbodyにクラスを付与するため不要 */
