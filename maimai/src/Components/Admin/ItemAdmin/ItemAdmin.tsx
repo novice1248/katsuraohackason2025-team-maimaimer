@@ -1,6 +1,25 @@
 import { useState, useEffect } from 'react';
 import { db } from '../../../firebaseConfig';
-import { collection, onSnapshot, addDoc, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
+import { collection, onSnapshot, addDoc, deleteDoc, doc, query, orderBy, writeBatch } from 'firebase/firestore';
+
+// Dnd-kitからのインポート (DragEndEventを型としてインポート)
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+  useSortable,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 type Category = { id: string; name: string; };
 export type Item = {
@@ -9,6 +28,7 @@ export type Item = {
   type: 'number' | 'checkbox';
   standardValue?: number;
   errorThreshold?: number;
+  order: number;
 };
 
 // 新規項目用の型を定義（数値入力は文字列として扱う）
@@ -19,6 +39,44 @@ type NewItemState = {
   errorThreshold: string;
 }
 
+// Draggableなリストアイテムのための個別コンポーネント
+const SortableItem = ({ item, onDelete }: { item: Item, onDelete: (id: string) => void }) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: item.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    zIndex: isDragging ? 1 : 'auto', // ドラッグ中に他の要素の上に表示
+  };
+
+  return (
+    <li
+      ref={setNodeRef}
+      style={style}
+      className={`list-item-detailed ${isDragging ? 'dragging' : ''}`}
+    >
+      <div className="drag-handle" {...attributes} {...listeners}>
+        ⠿
+      </div>
+      <div className="item-content">
+        <div className="item-name"><strong>{item.label}</strong> ({item.type})</div>
+        {item.type === 'number' && (
+          <small>基準値: {item.standardValue}, 許容差: {item.errorThreshold}</small>
+        )}
+      </div>
+      <button onClick={() => onDelete(item.id)} className="delete-button-small">×</button>
+    </li>
+  );
+}
+
+
 interface ItemAdminProps {
   placeId: string;
   category: Category;
@@ -26,13 +84,12 @@ interface ItemAdminProps {
 
 export const ItemAdmin = ({ placeId, category }: ItemAdminProps) => {
   const [items, setItems] = useState<Item[]>([]);
-  // 作成した型をuseStateに適用（初期値も文字列に）
   const [newItem, setNewItem] = useState<NewItemState>({
     label: '', type: 'number', standardValue: '0', errorThreshold: '0'
   });
 
   useEffect(() => {
-    const q = query(collection(db, 'places', placeId, 'categories', category.id, 'items'), orderBy('label'));
+    const q = query(collection(db, 'places', placeId, 'categories', category.id, 'items'), orderBy('order'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setItems(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Item)));
     });
@@ -44,9 +101,9 @@ export const ItemAdmin = ({ placeId, category }: ItemAdminProps) => {
     if (newItem.label.trim() === '') return;
     
     const itemToAdd = {
-      label: newItem.label,
+      label: newItem.label.trim(),
       type: newItem.type,
-      // typeが'number'の場合のみ、文字列を数値に変換して追加
+      order: items.length,
       ...(newItem.type === 'number' && {
         standardValue: parseFloat(newItem.standardValue) || 0,
         errorThreshold: parseFloat(newItem.errorThreshold) || 0,
@@ -54,7 +111,6 @@ export const ItemAdmin = ({ placeId, category }: ItemAdminProps) => {
     };
 
     await addDoc(collection(db, 'places', placeId, 'categories', category.id, 'items'), itemToAdd);
-    // フォームを初期状態にリセット
     setNewItem({ label: '', type: 'number', standardValue: '0', errorThreshold: '0' });
   };
   
@@ -64,24 +120,45 @@ export const ItemAdmin = ({ placeId, category }: ItemAdminProps) => {
     }
   };
 
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (over && active.id !== over.id) {
+      const oldIndex = items.findIndex((item) => item.id === active.id);
+      const newIndex = items.findIndex((item) => item.id === over.id);
+
+      const newItems = arrayMove(items, oldIndex, newIndex);
+      setItems(newItems);
+
+      const batch = writeBatch(db);
+      newItems.forEach((item, index) => {
+        const docRef = doc(db, 'places', placeId, 'categories', category.id, 'items', item.id);
+        batch.update(docRef, { order: index });
+      });
+      await batch.commit();
+    }
+  };
+
   return (
     <div className="column">
-      <div className="column-header">
-        <h3>計測項目 ({category.name})</h3>
-      </div>
+      <div className="column-header"><h3>計測項目 ({category.name})</h3></div>
       <div className="column-content">
-        <ul className="item-list-detailed">
-          {items.map((item) => (
-            <li key={item.id} className="list-item-detailed">
-              {/* このdivにクラスを追加 */}
-              <div className="item-name"><strong>{item.label}</strong> ({item.type})</div>
-              {item.type === 'number' && (
-                <small>基準値: {item.standardValue}, 許容差: {item.errorThreshold}</small>
-              )}
-              <button onClick={() => handleDeleteItem(item.id)} className="delete-button-small">×</button>
-            </li>
-          ))}
-        </ul>
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <SortableContext items={items} strategy={verticalListSortingStrategy}>
+            <ul className="item-list-detailed">
+              {items.map((item) => (
+                <SortableItem key={item.id} item={item} onDelete={handleDeleteItem} />
+              ))}
+            </ul>
+          </SortableContext>
+        </DndContext>
+        
         <form onSubmit={handleAddItem} className="add-form-detailed">
           <div className="form-row">
             <label htmlFor="item-label">項目名</label>
@@ -99,12 +176,10 @@ export const ItemAdmin = ({ placeId, category }: ItemAdminProps) => {
             <>
               <div className="form-row">
                 <label htmlFor="item-std-val">基準値</label>
-                {/* onChangeで文字列をそのまま保存するように変更 */}
                 <input id="item-std-val" type="number" step="any" value={newItem.standardValue} onChange={e => setNewItem({...newItem, standardValue: e.target.value})} />
               </div>
               <div className="form-row">
                 <label htmlFor="item-err-thresh">許容差 (±)</label>
-                {/* onChangeで文字列をそのまま保存するように変更 */}
                 <input id="item-err-thresh" type="number" step="any" value={newItem.errorThreshold} onChange={e => setNewItem({...newItem, errorThreshold: e.target.value})} />
               </div>
             </>
