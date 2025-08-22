@@ -85,7 +85,7 @@ export const DataEntryForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const gasUrl = 'https://script.google.com/macros/s/AKfycbx1QTUCO42fCZDuK7_tB_rYf_wlWsv1ocTzlDO-6T5W7-_yx6-LzukvzdQHgXUhEgDg/exec';
+    const gasUrl = 'https://script.google.com/macros/s/AKfycbxWDBfbzGqxeE9jgylxyB_cg8gN_qfcGE9k1w6syinw0-tgIQW47RS2A3q1YjApYBRe/exec';
 
     // GASに送信するデータを動的に整形
     const reportData: ReportData = {};
