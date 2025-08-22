@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { db } from '../../firebaseConfig';
+import { db } from '../../../firebaseConfig';
 import { collection, onSnapshot, addDoc, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
-import { CategoryAdmin } from '../Admin/CategoryAdmin/CategoryAdmin';
+import { CategoryAdmin } from '../CategoryAdmin/CategoryAdmin';
 import './LocationAdmin.css';
 
 type Place = { id: string; name: string; };

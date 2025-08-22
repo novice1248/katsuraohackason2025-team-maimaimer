@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { LocationAdmin } from '../../LocationAdmin/LocationAdmin'; // パスを更新
-import { useAuth } from '../../../hooks/useAuth'; // パスを更新
+import { LocationAdmin } from '../LocationAdmin/LocationAdmin';
+import { UserAdmin } from '../UserAdmin/UserAdmin'; // UserAdminをインポート
+import { useAuth } from '../../../hooks/useAuth';
 import './AdminPage.css';
 
-// 表示するページの種類を定義
-type AdminPageType = 'form-management' | 'data-entry';
+// 表示するページの種類を更新
+type AdminPageType = 'form-management' | 'user-management' | 'data-entry';
 
 // データ入力フォームの仮コンポーネント
 const DataEntryForm = () => (
@@ -15,6 +16,7 @@ const DataEntryForm = () => (
 );
 
 export const AdminPage = () => {
+  // 初期ページを'form-management'に設定
   const [activePage, setActivePage] = useState<AdminPageType>('form-management');
   const { logout } = useAuth();
 
@@ -22,6 +24,8 @@ export const AdminPage = () => {
     switch (activePage) {
       case 'form-management':
         return <LocationAdmin />;
+      case 'user-management': // 新しいケースを追加
+        return <UserAdmin />;
       case 'data-entry':
         return <DataEntryForm />;
       default:
@@ -37,6 +41,13 @@ export const AdminPage = () => {
           className={activePage === 'form-management' ? 'active' : ''}
         >
           フォーム管理
+        </button>
+        {/* ↓↓↓ このボタンが追加されています ↓↓↓ */}
+        <button
+          onClick={() => setActivePage('user-management')}
+          className={activePage === 'user-management' ? 'active' : ''}
+        >
+          ユーザー管理
         </button>
         <button
           onClick={() => setActivePage('data-entry')}
