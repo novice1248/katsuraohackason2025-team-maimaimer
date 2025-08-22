@@ -3,7 +3,7 @@
   display: flex;
   gap: 16px;
   height: calc(100vh - 150px);
-  background-color: var(--background-color, #f0f0f0); /* Use global background variable */
+  background-color: #f0f0f0; /* ライトモードの背景色に設定 */
 }
 
 /* --- 3つのカラム共通のスタイル --- */
@@ -11,22 +11,22 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--input-border-color, #dbdbdb); /* Use global border variable */
+  border: 1px solid #dbdbdb; /* ライトモードのボーダー色に設定 */
   border-radius: 6px;
-  background-color: var(--card-background-color, #ffffff); /* Use global card background variable */
+  background-color: #ffffff; /* ライトモードのカード背景色に設定 */
   overflow: hidden;
 }
 
 .column-header {
   padding: 12px;
-  border-bottom: 1px solid var(--input-border-color, #dbdbdb);
-  background-color: var(--card-background-color, #ffffff);
+  border-bottom: 1px solid #dbdbdb; /* ライトモードのボーダー色に設定 */
+  background-color: #ffffff; /* ライトモードのカード背景色に設定 */
 }
 
 .column-header h3 {
   margin: 0;
   font-size: 16px;
-  color: var(--text-color, #000); /* Use global text color variable */
+  color: #000; /* ライトモードのテキスト色に設定 */
 }
 
 .column-content {
@@ -53,34 +53,35 @@
   border-radius: 4px;
   cursor: pointer;
   border: 2px solid transparent; /* 選択状態用の枠線スペース */
-  color: var(--text-color, #000); /* Use global text color variable */
+  color: #000; /* ライトモードのテキスト色に設定 */
+  background-color: #ffffff; /* 明示的に白背景を設定 */
 }
 
 .list-item:hover {
-  background-color: var(--input-border-color, #f5f5f5); /* Use a softer hover color */
+  background-color: #f5f5f5; /* ホバー時の背景色に設定 */
 }
 
 .list-item.selected {
-  background-color: var(--card-background-color, #fff);
+  background-color: #fff; /* 選択時の背景色に設定 */
   font-weight: bold;
-  border: 2px solid var(--text-color, #000); /* Use global text color for border */
+  border: 2px solid #000; /* 選択時のボーダー色に設定 */
 }
 
 /* --- 小さな削除ボタン (×) --- */
 .delete-button-small {
   background: none;
   border: none;
-  color: var(--text-color, #888); /* Use global text color */
+  color: #888; /* ライトモードのテキスト色に設定 */
   cursor: pointer;
   font-size: 18px;
   line-height: 1;
   padding: 4px;
 }
 .list-item.selected .delete-button-small {
-  color: var(--text-color, #000);
+  color: #000; /* ライトモードのテキスト色に設定 */
 }
 .delete-button-small:hover {
-  color: var(--text-color, #000);
+  color: #000; /* ライトモードのテキスト色に設定 */
 }
 
 /* --- 場所・施設追加フォーム --- */
@@ -92,22 +93,22 @@
 
 .add-form input {
   flex-grow: 1;
-  border: 1px solid var(--input-border-color, #ccc);
+  border: 1px solid #ccc; /* ライトモードのボーダー色に設定 */
   padding: 8px;
   border-radius: 4px 0 0 4px;
-  background-color: var(--input-background-color, #fff);
-  color: var(--input-text-color, #333);
+  background-color: #fff; /* ライトモードの背景色に設定 */
+  color: #333; /* ライトモードのテキスト色に設定 */
 }
 
 .add-form button {
-  border: 1px solid var(--input-border-color, #ccc);
+  border: 1px solid #ccc; /* ライトモードのボーダー色に設定 */
   border-left: none;
-  background-color: var(--input-background-color, #f5f5f5);
+  background-color: #f5f5f5; /* ライトモードの背景色に設定 */
   padding: 0 12px;
   border-radius: 0 4px 4px 0;
   cursor: pointer;
   font-size: 16px;
-  color: var(--text-color, #000);
+  color: #000; /* ライトモードのテキスト色に設定 */
 }
 
 /* --- 計測項目リストのスタイル --- */
@@ -118,11 +119,11 @@
 }
 /* 項目名のスタイルを追加 */
 .item-name {
-  color: var(--text-color, #000);
+  color: #000; /* ライトモードのテキスト色に設定 */
   margin-bottom: 4px;
 }
 .list-item-detailed small {
-  color: var(--text-color, #555);
+  color: #555; /* ライトモードのテキスト色に設定 */
   display: block;
   margin-top: 4px;
 }
@@ -138,7 +139,7 @@
   flex-direction: column;
   gap: 12px; /* 項目間の隙間を調整 */
   padding: 10px;
-  border-top: 1px solid var(--input-border-color, #eee);
+  border-top: 1px solid #eee; /* ライトモードのボーダー色に設定 */
   margin-top: auto;
 }
 
@@ -151,104 +152,23 @@
 .add-form-detailed label {
   font-size: 12px;
   font-weight: bold;
-  color: var(--text-color, #333);
+  color: #333; /* ライトモードのテキスト色に設定 */
 }
 
 .add-form-detailed input, .add-form-detailed select {
   padding: 8px;
-  border: 1px solid var(--input-border-color, #ccc);
+  border: 1px solid #ccc; /* ライトモードのボーダー色に設定 */
   border-radius: 4px;
   font-size: 14px;
-  background-color: var(--input-background-color, #fff);
-  color: var(--input-text-color, #333);
+  background-color: #fff; /* ライトモードの背景色に設定 */
+  color: #333; /* ライトモードのテキスト色に設定 */
 }
 .add-form-detailed button {
   margin-top: 8px;
   padding: 10px;
-  background-color: var(--button-background-color, #333); /* Use global button background */
-  color: var(--button-text-color, white); /* Use global button text color */
+  background-color: #007bff; /* 青色に設定 */
+  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-}
-
-@media (prefers-color-scheme: dark) {
-  .form-management-layout {
-    background-color: #242424; /* Darker background */
-  }
-
-  .column {
-    border-color: #444; /* Darker border */
-    background-color: #333; /* Darker background */
-  }
-
-  .column-header {
-    border-bottom-color: #444;
-    background-color: #333;
-  }
-
-  .column-header h3 {
-    color: #f0f0f0; /* Lighter text */
-  }
-
-  .list-item {
-    color: #ccc; /* Lighter text */
-  }
-
-  .list-item:hover {
-    background-color: #444; /* Darker hover background */
-  }
-
-  .list-item.selected {
-    background-color: #555; /* Darker selected background */
-    border-color: #90caf9; /* Lighter blue border for selected */
-    color: #f0f0f0;
-  }
-
-  .delete-button-small {
-    color: #aaa; /* Lighter gray */
-  }
-  .list-item.selected .delete-button-small {
-    color: #f0f0f0;
-  }
-  .delete-button-small:hover {
-    color: #f0f0f0;
-  }
-
-  .add-form input {
-    border-color: #666;
-    background-color: #444;
-    color: #f0f0f0;
-  }
-
-  .add-form button {
-    border-color: #666;
-    background-color: #555;
-    color: #f0f0f0;
-  }
-
-  .item-name {
-    color: #f0f0f0;
-  }
-  .list-item-detailed small {
-    color: #ccc;
-  }
-
-  .add-form-detailed {
-    border-top-color: #444;
-  }
-
-  .add-form-detailed label {
-    color: #ccc;
-  }
-
-  .add-form-detailed input, .add-form-detailed select {
-    border-color: #666;
-    background-color: #444;
-    color: #f0f0f0;
-  }
-  .add-form-detailed button {
-    background-color: #555;
-    color: #f0f0f0;
-  }
 }

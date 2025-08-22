@@ -5,23 +5,15 @@ import { useAuth } from './hooks/useAuth';
 import { AuthPage } from './pages/AuthPage';
 import { AdminMenu } from './pages/AdminMenu';
 import { UserMenu } from './pages/UserMenu';
-import { useState, useEffect } from 'react'; // useStateとuseEffectをインポート
+import { useEffect } from 'react'; // useEffectをインポート
 
 function App() {
   const { currentUser, isAdmin, loading } = useAuth();
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    // システムのダークモード設定を初期値として取得
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      return savedTheme as 'light' | 'dark';
-    }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  });
 
   useEffect(() => {
-    document.body.className = theme === 'dark' ? 'dark-mode' : 'light-mode';
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+    // ダークモード関連のクラス設定を削除し、常にライトモードの背景色を適用
+    document.body.className = 'light-mode';
+  }, []);
 
   if (loading) {
     return <div>読み込み中...</div>;
@@ -40,7 +32,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header theme={theme} setTheme={setTheme} /> {/* themeとsetThemeをHeaderに渡す */}
+      <Header /> {/* themeとsetThemeのpropsを削除 */}
       <main className="main-content">
         {renderMainContent()}
       </main>

@@ -2,30 +2,36 @@
 	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
-
-	color-scheme: light dark;
-	color: rgba(255, 255, 255, 0.87);
-	background-color: #242424;
-
+	color-scheme: light; /* ダークモードを削除 */
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
-a {
-	font-weight: 500;
-	color: #646cff;
-	text-decoration: inherit;
-}
-a:hover {
-	color: #535bf2;
-}
-
 body {
 	margin: 0;
 	min-width: 320px;
 	min-height: 100vh;
+	/* ライトモードのデフォルト値を直接設定 */
+	--background-color: #f0f0f0;
+	--text-color: #333;
+	--header-background-color: #ffffff;
+	--header-border-color: #eaeaea;
+	--h2-color: #333;
+	--h2-border-color: #000;
+	--h3-color: #333;
+	--button-background-color: #f0f0f0;
+	--button-text-color: #007bff; /* ボタンの文字色を青に */
+	--button-border-color: #ccc;
+	--button-hover-background-color: #f0f8ff; /* ホバー時の背景色をさらに薄い青に (AliceBlue) */
+	--button-hover-text-color: #000;
+	--button-hover-border-color: #aaa;
+	--link-color: #007bff;
+
+	background-color: var(--background-color);
+	color: var(--text-color);
+	transition: background-color 0.3s, color 0.3s;
 }
 
 h1 {
@@ -33,105 +39,34 @@ h1 {
 	line-height: 1.1;
 }
 
+a {
+	font-weight: 500;
+	color: var(--link-color);
+	text-decoration: inherit;
+}
+a:hover {
+	color: var(--link-color);
+}
+
 button {
 	border-radius: 8px;
-	border: 1px solid transparent;
+	border: 1px solid var(--button-border-color);
 	padding: 0.6em 1.2em;
 	font-size: 1em;
 	font-weight: 500;
 	font-family: inherit;
-	background-color: #1a1a1a;
+	background-color: var(--button-background-color);
+	color: var(--button-text-color);
+	border-color: var(--button-border-color);
 	cursor: pointer;
-	transition: border-color 0.25s;
+	transition: border-color 0.25s, background-color 0.25s, color 0.25s;
 }
 button:hover {
-	border-color: #646cff;
+	border-color: var(--button-hover-border-color);
+	background-color: var(--button-hover-background-color);
+	color: var(--button-hover-text-color);
 }
 button:focus,
 button:focus-visible {
 	outline: 4px auto -webkit-focus-ring-color;
-}
-
-body.light-mode {
-  --background-color: #f0f0f0;
-  --text-color: #333;
-  --header-background-color: #ffffff;
-  --header-border-color: #eaeaea;
-  --h2-color: #333;
-  --h2-border-color: #000;
-  --h3-color: #333;
-  --button-background-color: #f0f0f0;
-  --button-text-color: #333;
-  --button-border-color: #ccc;
-  --button-hover-background-color: #e0e0e0;
-  --button-hover-text-color: #000;
-  --button-hover-border-color: #aaa;
-  --link-color: #007bff;
-}
-
-body.dark-mode {
-  --background-color: #242424;
-  --text-color: rgba(255, 255, 255, 0.87);
-  --header-background-color: #1a1a1a;
-  --header-border-color: #333;
-  --h2-color: #fff;
-  --h2-border-color: #eee;
-  --h3-color: #fff;
-  --button-background-color: #333;
-  --button-text-color: rgba(255, 255, 255, 0.87);
-  --button-border-color: #000;
-  --button-hover-background-color: #444;
-  --button-hover-text-color: #fff;
-  --button-hover-border-color: #90caf9;
-  --link-color: #90caf9;
-}
-
-body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  transition: background-color 0.3s, color 0.3s;
-}
-
-/* 既存の:rootのスタイルはbodyに移動または調整 */
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color-scheme: light dark; /* これを残してブラウザのデフォルト設定も尊重 */
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: var(--link-color);
-  text-decoration: inherit;
-}
-a:hover {
-  color: var(--link-color); /* ホバー時の色も変数に */
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: var(--button-background-color);
-  color: var(--button-text-color);
-  border-color: var(--button-border-color);
-  cursor: pointer;
-  transition: border-color 0.25s, background-color 0.25s, color 0.25s;
-}
-button:hover {
-  border-color: var(--button-hover-border-color);
-  background-color: var(--button-hover-background-color);
-  color: var(--button-hover-text-color);
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
