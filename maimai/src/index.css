@@ -54,13 +54,49 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
 	:root {
-		color: #213547;
-		background-color: #ffffff;
+		color: #333; /* Softer dark text for light mode */
+		background-color: #f0f0f0; /* Softer off-white background for light mode */
+
+		/* Custom properties for light mode */
+		--card-background-color: #ffffff;
+		--text-color: #333;
+		--input-background-color: #ffffff;
+		--input-text-color: #333;
+		--input-border-color: #ccc;
+		--link-color: #007bff;
 	}
 	a:hover {
 		color: #747bff;
 	}
 	button {
-		background-color: #f9f9f9;
+		background-color: #f0f0f0; /* Softer background for buttons in light mode */
+		color: #333; /* Ensure text color is dark in light mode */
+		border: 1px solid #ccc; /* Softer border for buttons in light mode */
+	}
+	button:hover {
+		border-color: #747bff;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		color: rgba(255, 255, 255, 0.87);
+		background-color: #242424;
+
+		/* Custom properties for dark mode */
+		--card-background-color: #333;
+		--text-color: rgba(255, 255, 255, 0.87);
+		--input-background-color: #444;
+		--input-text-color: rgba(255, 255, 255, 0.87);
+		--input-border-color: #666;
+		--link-color: #90caf9; /* Lighter blue for links in dark mode */
+	}
+	button {
+		background-color: #333; /* Darker background for buttons in dark mode */
+		color: rgba(255, 255, 255, 0.87); /* Lighter text for buttons in dark mode */
+		border: 1px solid #000; /* Black border for buttons in dark mode */
+	}
+	button:hover {
+		border-color: #90caf9; /* Lighter blue hover for dark mode */
 	}
 }

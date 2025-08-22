@@ -1,6 +1,6 @@
 .app-header {
-  background-color: #ffffff;
-  border-bottom: 1px solid #eaeaea;
+  background-color: var(--card-background-color, #ffffff);
+  border-bottom: 1px solid var(--input-border-color, #eaeaea);
   padding: 0 24px;
   height: 64px;
 }
@@ -18,7 +18,7 @@
   font-size: 20px;
   font-weight: 600;
   margin: 0;
-  color: #333;
+  color: var(--text-color, #333);
 }
 
 .header-nav .user-info {
@@ -29,14 +29,14 @@
 
 .user-info span {
   font-size: 14px;
-  color: #555;
+  color: var(--text-color, #555);
 }
 
 .logout-button {
   padding: 8px 16px;
   background-color: transparent;
-  color: #007bff;
-  border: 1px solid #007bff;
+  color: var(--link-color, #007bff);
+  border: 1px solid var(--link-color, #007bff);
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
@@ -44,6 +44,31 @@
 }
 
 .logout-button:hover {
-  background-color: #007bff;
+  background-color: var(--link-color, #007bff);
   color: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  .app-header {
+    background-color: #1a1a1a; /* Darker background for header */
+    border-bottom-color: #333; /* Darker border */
+  }
+
+  .header-logo h1 {
+    color: #f0f0f0; /* Lighter text for dark mode */
+  }
+
+  .user-info span {
+    color: #ccc; /* Lighter text for dark mode */
+  }
+
+  .logout-button {
+    color: #90caf9; /* Lighter blue for dark mode */
+    border-color: #90caf9; /* Lighter blue border */
+  }
+
+  .logout-button:hover {
+    background-color: #90caf9;
+    color: #1a1a1a; /* Dark text on hover */
+  }
 }
