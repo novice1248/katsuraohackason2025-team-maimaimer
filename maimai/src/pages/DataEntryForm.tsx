@@ -1,72 +1,19 @@
 import { useState } from 'react';
+import { db } from '../firebaseConfig';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useAuth } from '../hooks/useAuth';
 import { type Item } from '../components/Admin/ItemAdmin/ItemAdmin';
-import { useFormStructure, type Place, type Category } from '../hooks/useFormStructure';
+import { useFormStructure, type Category } from '../hooks/useFormStructure';
 import { FormField } from '../components/DataEntryForm/FormField/FormField';
+import { ConfirmationScreen } from '../components/DataEntryForm/ConfirmationScreen/ConfirmationScreen';
 import './DataEntryForm.css';
 
-// --- 型定義 ---
+// GASに送信するデータ用の型定義
 type ReportItemValue = number | boolean | string;
 type ReportCategoryData = Record<string, ReportItemValue>;
 type ReportPlaceData = Record<string, ReportCategoryData>;
 type ReportData = Record<string, ReportPlaceData>;
 
-// --- 確認画面コンポーネント ---
-interface ConfirmationScreenProps {
-  formStructure: Place[];
-  inputValues: Record<string, string | boolean>;
-  details: Record<string, string>;
-  onBack: () => void;
-  onSubmit: () => void;
-  isSubmitting: boolean;
-}
-
-const ConfirmationScreen = ({ formStructure, inputValues, details, onBack, onSubmit, isSubmitting }: ConfirmationScreenProps) => {
-  const { currentUser } = useAuth();
-
-  return (
-    <div className="confirmation-screen">
-      <h2>入力内容の確認</h2>
-      <div className="confirmation-summary">
-        <p><strong>日時:</strong> {new Date().toLocaleDateString('ja-JP')}</p>
-        <p><strong>担当者:</strong> {currentUser?.displayName || currentUser?.email}</p>
-      </div>
-
-      {formStructure.map(place => (
-        <div key={place.id} className="confirmation-place">
-          <h3>{place.name}</h3>
-          {place.categories.map(category => (
-            <div key={category.id} className="confirmation-category">
-              <h4>{category.name}</h4>
-              <ul>
-                {category.items.map(item => {
-                  const value = inputValues[item.id];
-                  let displayValue: string;
-                  if (item.type === 'checkbox') {
-                    displayValue = value ? '正常' : `異常あり (${details[item.id] || '詳細未入力'})`;
-                  } else {
-                    displayValue = (value as string) || '未入力';
-                  }
-                  return <li key={item.id}><strong>{item.label}:</strong> {displayValue}</li>;
-                })}
-              </ul>
-            </div>
-          ))}
-        </div>
-      ))}
-
-      <div className="confirmation-actions">
-        <button type="button" onClick={onBack} className="back-button">修正する</button>
-        <button type="button" onClick={onSubmit} className="submit-button" disabled={isSubmitting}>
-          {isSubmitting ? '送信中...' : 'この内容で送信する'}
-        </button>
-      </div>
-    </div>
-  );
-};
-
-
-// --- メインコンポーネント：DataEntryForm ---
 export const DataEntryForm = () => {
   const { currentUser } = useAuth();
   const { formStructure, loading } = useFormStructure();
@@ -118,10 +65,14 @@ export const DataEntryForm = () => {
       setErrors(prev => ({ ...prev, [item.id]: '' }));
     }
   };
-  
+
   const handleSubmit = async () => {
+    if (!currentUser) {
+      alert('ログインしていません。');
+      return;
+    }
     setIsSubmitting(true);
-    const gasUrl = 'https://script.google.com/macros/s/AKfycbxWDBfbzGqxeE9jgylxyB_cg8gN_qfcGE9k1w6syinw0-tgIQW47RS2A3q1YjApYBRe/exec';
+
     const reportData: ReportData = {};
     formStructure.forEach(place => {
       reportData[place.name] = {};
@@ -138,9 +89,26 @@ export const DataEntryForm = () => {
       });
     });
 
+    try {
+      await addDoc(collection(db, 'reports'), {
+        submittedAt: serverTimestamp(),
+        submittedBy: {
+          uid: currentUser.uid,
+          name: currentUser.displayName || currentUser.email,
+        },
+        values: reportData,
+      });
+    } catch (error) {
+      console.error('Firestoreへの保存に失敗しました:', error);
+      alert('データベースへの保存に失敗しました。');
+      setIsSubmitting(false);
+      return;
+    }
+
+    const gasUrl = 'https://script.google.com/macros/s/AKfycbxWDBfbzGqxeE9jgylxyB_cg8gN_qfcGE9k1w6syinw0-tgIQW47RS2A3q1YjApYBRe/exec';
     const jsonData = {
       'タイムスタンプ': new Date().toLocaleString('ja-JP'),
-      '担当者名': currentUser?.displayName || currentUser?.email || '不明',
+      '担当者名': currentUser.displayName || currentUser.email || '不明',
       'データ': reportData
     };
 
@@ -159,8 +127,8 @@ export const DataEntryForm = () => {
       setSelectedCategoryId(null);
       setSelectedPlaceId(null);
     } catch (error) {
-      console.error('Error:', error);
-      alert('データの送信中にエラーが発生しました。');
+      console.error('GASへの送信エラー:', error);
+      alert('スプレッドシートへの送信中にエラーが発生しました。');
     } finally {
       setIsSubmitting(false);
     }

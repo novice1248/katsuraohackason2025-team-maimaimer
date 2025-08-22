@@ -1,5 +1,6 @@
 import * as functions from "firebase-functions/v1";
 import * as admin from "firebase-admin";
+import axios from "axios";
 
 admin.initializeApp();
 
@@ -112,5 +113,51 @@ export const getAllUsers = functions
     } catch (error) {
       console.error("getAllUsers Error:", error);
       throw new functions.https.HttpsError("internal", "ユーザーの取得に失敗しました。");
+    }
+  });
+
+  /**
+ * 6. 'reports'コレクションに新しいドキュメントが作成されたら、GASにデータを送信する
+ */
+export const sendReportToGAS = functions
+  .region("asia-northeast1")
+  .firestore
+  .document("reports/{reportId}") // ★ここに監視したいコレクション名とドキュメントIDを指定します
+  .onCreate(async (snap, context) => {
+    // 作成されたドキュメントのデータを取得
+    const newReportData = snap.data();
+    functions.logger.log("New report created, sending to GAS:", newReportData);
+
+    // GASのWebアプリURLを環境変数から取得
+    // 事前に `firebase functions:config:set gas.url="YOUR_GAS_WEB_APP_URL"` で設定しておく
+    const gasWebAppUrl = functions.config().gas.url;
+
+    if (!gasWebAppUrl) {
+      functions.logger.error("GAS Web App URL is not configured. Please set it in Firebase config.");
+      return null; // URLがなければ処理を終了
+    }
+
+    try {
+      // axiosを使ってGASにPOSTリクエストを送信
+      const response = await axios.post(gasWebAppUrl, newReportData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      functions.logger.info("Successfully sent data to GAS. Response:", response.data);
+      return { status: "success", message: "Data sent to GAS." };
+    } catch (error) {
+      // エラーログを詳細に出力
+      if (axios.isAxiosError(error)) {
+        functions.logger.error("Axios error sending data to GAS:", {
+          message: error.message,
+          url: gasWebAppUrl,
+          response: error.response?.data,
+        });
+      } else {
+        functions.logger.error("Unknown error sending data to GAS:", error);
+      }
+      return null; // エラーで処理を終了
     }
   });
