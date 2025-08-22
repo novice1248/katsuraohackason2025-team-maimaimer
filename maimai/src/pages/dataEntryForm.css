@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 20px;
   font-family: sans-serif;
+  color: var(--text-color); /* グローバル変数を使用 */
 }
 
 /* --- ナビゲーション --- */
@@ -54,7 +55,8 @@
 /* --- 項目入力画面 --- */
 .form-section h2 {
   font-size: 24px;
-  border-bottom: 2px solid #000;
+  color: var(--h2-color); /* グローバル変数を使用 */
+  border-bottom: 2px solid var(--h2-border-color); /* グローバル変数を使用 */
   padding-bottom: 8px;
   margin-bottom: 16px;
 }
@@ -67,7 +69,7 @@
 .category-section h3 {
   font-size: 18px;
   margin-bottom: 12px;
-  color: #333;
+  color: var(--h3-color); /* グローバル変数を使用 */
 }
 
 .form-item {

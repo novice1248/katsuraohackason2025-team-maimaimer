@@ -1,9 +1,19 @@
 import { useAuth } from '../../hooks/useAuth'; // パスを更新
 import './Header.css';
+import type { Dispatch, SetStateAction } from 'react'; // DispatchとSetStateActionを型としてインポート
 
-export const Header = () => {
+interface HeaderProps {
+  theme: 'light' | 'dark';
+  setTheme: Dispatch<SetStateAction<'light' | 'dark'>>;
+}
+
+export const Header = ({ theme, setTheme }: HeaderProps) => {
   // AuthContextから現在のユーザー情報とログアウト関数を取得
   const { currentUser, logout } = useAuth();
+
+  const toggleTheme = () => {
+    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
 
   return (
     <header className="app-header">
@@ -21,6 +31,9 @@ export const Header = () => {
               </button>
             </div>
           )}
+          <button onClick={toggleTheme} className="theme-toggle-button">
+            {theme === 'light' ? 'ダークモード' : 'ライトモード'}
+          </button>
         </div>
       </div>
     </header>
