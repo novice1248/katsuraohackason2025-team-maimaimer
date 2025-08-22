@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react-swc'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: "/katsuraohackason2025-team-maimaimer/", 
   plugins: [react()],
   server:{
     host: true, // すべてのIPアドレスからアクセス可能にする'
