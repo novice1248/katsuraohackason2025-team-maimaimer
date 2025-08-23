@@ -2,20 +2,17 @@ import { type Item } from '../../Admin/ItemAdmin/ItemAdmin';
 import { Input } from '../../Input/Input';
 import { Checkbox } from '../../Checkbox/Checkbox';
 
-// このコンポーネントが受け取るpropsの型を定義
 interface FormFieldProps {
   item: Item;
   value: string | boolean;
   error: string;
+  warning: string;
   detail: string;
   onValueChange: (item: Item, value: string | boolean) => void;
   onDetailChange: (item: Item, detailValue: string) => void;
 }
 
-/**
- * データ入力フォームの各項目を描画するUIコンポーネント
- */
-export const FormField = ({ item, value, error, detail, onValueChange, onDetailChange }: FormFieldProps) => {
+export const FormField = ({ item, value, error, warning, detail, onValueChange, onDetailChange }: FormFieldProps) => {
   return (
     <div className="form-item-wrapper">
       <div className="form-item">
@@ -27,6 +24,11 @@ export const FormField = ({ item, value, error, detail, onValueChange, onDetailC
             value={(value as string) || ''}
             onChange={e => onValueChange(item, e.target.value)}
             error={error}
+            warning={warning}
+            // --- ここから追加・変更 ---
+            placeholder={typeof item.standardValue === 'number' ? String(item.standardValue) : '数値を入力'}
+            standardValue={item.standardValue}
+            errorThreshold={item.errorThreshold}
           />
         ) : (
           <Checkbox
@@ -45,6 +47,7 @@ export const FormField = ({ item, value, error, detail, onValueChange, onDetailC
             value={detail || ''}
             onChange={e => onDetailChange(item, e.target.value)}
             error={error}
+            warning={warning}
           />
         </div>
       )}

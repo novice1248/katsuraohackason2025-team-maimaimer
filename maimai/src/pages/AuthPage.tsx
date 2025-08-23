@@ -1,7 +1,7 @@
 import React from 'react';
-import { Login } from '../Components/Login/Login';
-import { SignUp } from '../Components/SignUp/SignUp';
-import { GoogleSignInButton } from '../Components/GoogleSignInButton/GoogleSignInButton';
+import { Login } from '../components/Login/Login';
+import { SignUp } from '../components/SignUp/SignUp';
+import { GoogleSignInButton } from '../components/GoogleSignInButton/GoogleSignInButton';
 
 export const AuthPage = () => {
   const [showLogin, setShowLogin] = React.useState(true);
