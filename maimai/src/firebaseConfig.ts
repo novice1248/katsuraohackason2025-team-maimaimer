@@ -4,7 +4,7 @@ import { getFirestore } from "firebase/firestore";
 import { getFunctions } from "firebase/functions";
 
 const firebaseConfig = {
-	apiKey: "AIzaSyBtW_witMwgoMD-ULmeM5b0RVkd1iQnEcg",
+	apiKey: "AIzaSyDKVKL5JVwrWXLQP2IVV08AoMwzvHl_7m4",
 	authDomain: "maimai-a1302.firebaseapp.com",
 	projectId: "maimai-a1302",
 	storageBucket: "maimai-a1302.firebasestorage.app",
